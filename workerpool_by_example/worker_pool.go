@@ -1,4 +1,4 @@
-package main
+package workerpool
 
 import (
 	"context"
@@ -7,12 +7,12 @@ import (
 	"time"
 )
 
-func workerPool(wg *sync.WaitGroup) {
-	ctx, cancel := context.WithTimeout(context.Background(), 500*time.Microsecond)
+func WorkerPool(wg *sync.WaitGroup) {
+	ctx, cancel := context.WithTimeout(context.Background(), 700*time.Microsecond)
 	defer cancel()
 
-	jobs := make(chan Job)
-	results := make(chan Result)
+	jobs := make(chan job)
+	results := make(chan result)
 
 	for i := range 10 {
 		wg.Add(1)

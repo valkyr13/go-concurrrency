@@ -1,11 +1,12 @@
 package main
 
 import (
+	channel "concurrency/channel_by_example"
+	workerpool "concurrency/workerpool_by_example"
 	"fmt"
 	"runtime"
 	"sync"
 )
-
 
 func main() {
 	//wait group practice
@@ -24,13 +25,12 @@ func main() {
 	done := make(chan int)
 
 	go func() {
-		done <- grow(200000)
+		done <- channel.Grow(200000)
 	}()
 
 	fmt.Println(<-done)
 
 	// worker pool pratice
-
-	workerPool(&wg)
+	workerpool.WorkerPool(&wg)
 
 }

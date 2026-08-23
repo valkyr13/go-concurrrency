@@ -1,11 +1,11 @@
-package main
+package workerpool
 
 import "fmt"
 
-func producer(jobs chan Job, n int) {
+func producer(jobs chan job, n int) {
 	for i := range n {
 		fmt.Printf("pushing job %d into job channel\n", i)
-		jobs <- Job{
+		jobs <- job{
 			ID: i,
 		}
 	}

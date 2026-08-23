@@ -1,4 +1,4 @@
-package main
+package workerpool
 
 import (
 	"context"
@@ -6,7 +6,7 @@ import (
 	"sync"
 )
 
-func worker(ctx context.Context, i int, jobs chan Job, results chan Result, wg *sync.WaitGroup) {
+func worker(ctx context.Context, i int, jobs chan job, results chan result, wg *sync.WaitGroup) {
 	defer wg.Done()
 	fmt.Printf("worker %d initiated\n", i)
 
@@ -22,7 +22,7 @@ func worker(ctx context.Context, i int, jobs chan Job, results chan Result, wg *
 			}
 			fmt.Printf("worker %d recieved job %v\n", i, job.ID)
 
-			result := Result{
+			result := result{
 				job:    job,
 				output: "job finished",
 			}
