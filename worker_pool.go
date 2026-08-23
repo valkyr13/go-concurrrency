@@ -8,7 +8,7 @@ import (
 )
 
 func workerPool(wg *sync.WaitGroup) {
-	_, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 500*time.Microsecond)
 	defer cancel()
 
 	jobs := make(chan Job)
@@ -16,7 +16,7 @@ func workerPool(wg *sync.WaitGroup) {
 
 	for i := range 10 {
 		wg.Add(1)
-		go worker(i, jobs, results, wg)
+		go worker(ctx, i, jobs, results, wg)
 	}
 
 	go producer(jobs, 20)
