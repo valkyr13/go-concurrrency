@@ -40,7 +40,7 @@ func (c *Cache) Get_With_Write_Lock(key string) any {
 	defer c.mu.Unlock()
 	val, ok := c.data[key]
 	if ok {
-		atomic.AddInt64(&c.hits, 1)
+		c.hits += 1
 		return val
 	}
 

@@ -3,6 +3,7 @@ package main
 import (
 	channel "concurrency/channel_by_example"
 	workerpool "concurrency/workerpool_by_example"
+	"context"
 	"fmt"
 	"runtime"
 	"sync"
@@ -32,5 +33,14 @@ func main() {
 
 	// worker pool pratice
 	workerpool.WorkerPool(&wg)
+
+	// select mechanics
+	channel.RandomSelectPick()
+	channel.NothingReadyWithDefault()
+	ctx := context.Background()
+	ch := make(chan int)
+
+	go channel.TimeoutPattern(ch, ctx)
+	ch <- 1
 
 }
