@@ -2,6 +2,7 @@ package main
 
 import (
 	channel "concurrency/channel_by_example"
+	fanin "concurrency/fan-in"
 	workerpool "concurrency/workerpool_by_example"
 	"context"
 	"fmt"
@@ -43,4 +44,14 @@ func main() {
 	go channel.TimeoutPattern(ch, ctx)
 	ch <- 1
 
+	ichans := make([]chan int, 4)
+	ochan := make(chan int)
+
+	go fanin.KWayMerge(ichans, ochan)
+
+	fmt.Println("k way merge channel values")
+
+	for i := range ochan {
+		fmt.Println(i)
+	}
 }
